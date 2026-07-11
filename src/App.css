@@ -1,0 +1,192 @@
+body {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f4f6f9;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+}
+
+.container {
+  text-align: center;
+  background: white;
+  padding: 40px 60px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  max-width: 600px;
+  width: 100%;
+}
+
+h1 {
+  font-size: 2.5rem;
+  color: #1a1a1a;
+  margin-bottom: 18px;
+}
+
+.subtitle {
+  color: #666;
+  font-size: 0.95rem;
+  margin-bottom: 30px;
+}
+
+.error-text {
+  color: #e53e3e;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.task-form {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 40px;
+}
+
+.task-input {
+  flex: 1;
+  padding: 12px 15px;
+  border: 2px solid #e2e8f0;
+  border-radius: 6px;
+  font-size: 1rem;
+  outline: none;
+}
+
+.task-input:focus {
+  border-color: #3182ce;
+}
+
+.add-button {
+  padding: 12px 24px;
+  background-color: #edf2f7;
+  color: #4a5568;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.add-button:hover {
+  background-color: #e2e8f0;
+}
+
+.start-button {
+  padding: 15px 40px;
+  background-color: #3182ce;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(49, 130, 206, 0.3);
+}
+
+.start-button:hover {
+  background-color: #2b6cb0;
+}
+
+/* 集中画面用の追加デザイン */
+.focus-card {
+  background: linear-gradient(
+    135deg,
+    #ffffff 0%,
+    #f7fafc 50%,
+    #ebf8ff 100%
+  ); /* 高級感のあるグラデーション */
+  border: 2px dashed #cbd5e0;
+  border-radius: 12px;
+  padding: 50px 30px;
+  margin: 30px 0;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.02); /* 内側にほんのり影を入れて立体的に */
+}
+
+.focus-label {
+  font-size: 1.1rem;
+  color: #718096;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.giant-task-name {
+  font-size: 3.5rem; /* 講師絶賛の圧倒的な巨大表示 */
+  color: #2d3748;
+  margin: 20px 0 40px 0;
+  word-break: break-all;
+  line-height: 1.2;
+}
+
+.complete-button {
+  padding: 16px 50px;
+  background-color: #48bb78; /* 安心感を与えるグリーン */
+  color: white;
+  border: none;
+  border-radius: 50px; /* 押しやすい丸型ボタン */
+  font-size: 1.3rem;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(72, 187, 120, 0.4);
+  transition: transform 0.1s ease;
+}
+
+.complete-button:hover {
+  background-color: #38a169;
+  transform: scale(1.02);
+}
+
+/* 全完了時のお祝いアニメーションエリア */
+.all-completed-container {
+  padding: 20px 0;
+}
+
+.celebration-emoji {
+  font-size: 4rem;
+  display: inline-block;
+  margin-bottom: 15px;
+}
+
+.all-completed-text {
+  font-size: 2rem;
+  color: #2b6cb0;
+  margin-bottom: 10px;
+}
+
+.all-completed-sub {
+  color: #718096;
+  font-size: 1rem;
+}
+
+/* フッターのコントロールエリア */
+.control-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 30px;
+  border-top: 1px solid #e2e8f0;
+  padding-top: 20px;
+}
+
+.reset-button {
+  background: none;
+  border: none;
+  color: #a0aec0;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.reset-button:hover {
+  color: #e53e3e;
+  text-decoration: underline;
+}
+
+.back-button {
+  background: none;
+  border: none;
+  color: #4a5568;
+  font-size: 0.9rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.back-button:hover {
+  color: #1a202c;
+}
