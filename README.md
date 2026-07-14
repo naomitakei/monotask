@@ -1,5 +1,5 @@
 # MonoTask
-<br><img width="300" alt="Image" src="https://github.com/user-attachments/assets/d2304a75-f536-455d-94b6-49174f82e139" /><br>
+<br><img width="100%" alt="Image" src="https://github.com/user-attachments/assets/d2304a75-f536-455d-94b6-49174f82e139" /><br>
 〜「今やるべき1つの事」に全集中！目移りを遮断する業務着手支援システム〜
 
 ## 🏢 開発の背景・ターゲット層
@@ -14,12 +14,13 @@
 - **ユーザー名（Username）**: `admin`
 - **パスワード（Password）**: `1234`
 ※未ログイン状態でのタスク登録・取得画面への直接アクセスは、セキュリティ制御により完全遮断されます。
+<br> <img width="280"  alt="Image" src="https://github.com/user-attachments/assets/47e1ee4e-3e13-43e1-b42f-f754a0299a8f" /> <br>
 
 ## ✨ 今回追加・強化した機能
 1. **ユーザー認証（ログイン）機能（追加）**
    - セキュリティ要件を満たすため、初期画面にログイン機能を新規実装。
    - 動的な認証判定と、未入力時・認証失敗時のエラーメッセージ動的表示を実装。
-   <br> <img width="280"  alt="Image" src="https://github.com/user-attachments/assets/47e1ee4e-3e13-43e1-b42f-f754a0299a8f" /> <br> 
+<br><img width="280" alt="Image" src="https://github.com/user-attachments/assets/34d300e6-6aa3-45cc-a7ad-c01a49575ed0" /><br>
 
 2. **スマートフォン最適化（レスポンシブデザイン）（追加）**
    - 外出先や移動中のモバイル環境でも利用できるよう、画面幅600px以下を自動検知するメディアクエリを導入。
@@ -61,6 +62,7 @@ erDiagram
 ## 🖥️ 画面・機能の説明
 
 1. **ログイン画面**：アプリ起動時の初期画面。正規アカウント以外を遮断する認証セキュリティ要件をクリア。
+<br><img width="280" alt="Image" src="https://github.com/user-attachments/assets/34d300e6-6aa3-45cc-a7ad-c01a49575ed0" /><br>
 2. **タスク登録画面**：頭の中の業務を箇条書きで一括登録する画面。スマホ表示時は片手で操作しやすいよう縦並びへ自動最適化。
 <br><img width="280" alt="Image" src="https://github.com/user-attachments/assets/1ab9eb5c-d1b9-4a02-b761-3be55847ba02" /><br>   
 3. **シングルタスク集中画面**：未完了タスクから「1つの事」を圧倒的巨大フォントで自動提示。全完了時は動的なお祝い演出を表示。
