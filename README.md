@@ -1,4 +1,5 @@
 # MonoTask
+<br><img width="300" alt="Image" src="https://github.com/user-attachments/assets/d2304a75-f536-455d-94b6-49174f82e139" /><br>
 〜「今やるべき1つの事」に全集中！目移りを遮断する業務着手支援システム〜
 
 ## 🏢 開発の背景・ターゲット層
