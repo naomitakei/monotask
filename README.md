@@ -1,5 +1,5 @@
 # MonoTask
-<br><img width="100%" alt="Image" src="https://github.com/user-attachments/assets/d2304a75-f536-455d-94b6-49174f82e139" /><br>
+<br><img width="100%" alt="Image" src="https://github.com/user-attachments/assets/cd101658-5787-4c42-a9fc-025436b75303" /><br>
 〜「今やるべき1つの事」に全集中！目移りを遮断する業務着手支援システム〜
 
 ## 🏢 開発の背景・ターゲット層
@@ -9,8 +9,8 @@
 ポートフォリオの実演デモ用URLは以下となります。
 - **本番環境URL**: `http://localhost:5173/` （ローカル検証用環境）
 
-### 🔐 審査・テスト用アカウント
-評価の際は、以下のデモ用認証情報をご入力ください。
+### 🔐 テスト用アカウント
+以下のデモ用認証情報をご入力ください。
 - **ユーザー名（Username）**: `admin`
 - **パスワード（Password）**: `1234`
 ※未ログイン状態でのタスク登録・取得画面への直接アクセスは、セキュリティ制御により完全遮断されます。
@@ -25,13 +25,13 @@
 2. **スマートフォン最適化（レスポンシブデザイン）（追加）**
    - 外出先や移動中のモバイル環境でも利用できるよう、画面幅600px以下を自動検知するメディアクエリを導入。
    - タスク登録フォームの「縦並び最適化」や、巨大表示フォントの「2.2rem自動縮小」により、文字はみ出しバグを100%防止。
-     <br><img width="280" alt="Image" src="https://github.com/user-attachments/assets/5b491f81-945d-4b1f-8619-531a2de76d48" /><br>
+<br><img width="280" alt="Image" src="https://github.com/user-attachments/assets/5b491f81-945d-4b1f-8619-531a2de76d48" /><br>
      
      
 
 3. **入力バリデーションの二重強化（変更）**
    - フロントエンド（React）とバックエンド（Spring Boot）の両面で、空白記述禁止・最大100文字制限の厳格なチェックを実装。
-     <br><img width="280" alt="Image" src="https://github.com/user-attachments/assets/ae9184e2-c845-4731-9780-061767426a8e" /><br>
+<br><img width="280" alt="Image" src="https://github.com/user-attachments/assets/ae9184e2-c845-4731-9780-061767426a8e" /><br>
 
 ## 🛠️ 使用技術（技術スタック）
 
