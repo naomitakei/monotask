@@ -64,6 +64,7 @@ erDiagram
 1. **ログイン画面**：アプリ起動時の初期画面。正規アカウント以外を遮断する認証セキュリティ要件をクリア。
 <br><img width="280" alt="Image" src="https://github.com/user-attachments/assets/34d300e6-6aa3-45cc-a7ad-c01a49575ed0" /><br>
 2. **タスク登録画面**：頭の中の業務を箇条書きで一括登録する画面。スマホ表示時は片手で操作しやすいよう縦並びへ自動最適化。
-<br><img width="280" alt="Image" src="https://github.com/user-attachments/assets/1ab9eb5c-d1b9-4a02-b761-3be55847ba02" /><br>   
+<br><img width="280" alt="Image" src="https://github.com/user-attachments/assets/5b491f81-945d-4b1f-8619-531a2de76d48" /><br>  
 3. **シングルタスク集中画面**：未完了タスクから「1つの事」を圧倒的巨大フォントで自動提示。全完了時は動的なお祝い演出を表示。
+<br><img width="280" alt="Image" src="https://github.com/user-attachments/assets/1ab9eb5c-d1b9-4a02-b761-3be55847ba02" /><br>    
 <br><img width="280" alt="Image" src="https://github.com/user-attachments/assets/badb5915-58f6-47a6-be39-76e8d8e51536" /><br>
