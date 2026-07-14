@@ -3,32 +3,80 @@ import "./App.css";
 
 // バックエンド（Spring Boot）のURLを設定
 const API_BASE_URL = "http://localhost:8080/api/tasks";
+const LOGIN_API_URL = "http://localhost:8080/api/login";
 
 function App() {
-  // 画面の状態を管理する変数（ステート）
+  // --- 【新規】認証（ログイン）状態を管理する変数 ---
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // ログイン状態フラグ
+  const [username, setUsername] = useState(""); // ログイン入力：ユーザー名
+  const [password, setPassword] = useState(""); // ログイン入力：パスワード
+  const [loginError, setLoginError] = useState(""); // ログイン用エラー
+
+  // --- タスク管理用の変数 ---
   const [taskName, setTaskName] = useState(""); // 入力欄の文字
-  const [errorMessage, setErrorMessage] = useState(""); // エラーメッセージ
+  const [errorMessage, setErrorMessage] = useState(""); // タスク用エラーメッセージ
   const [isFocusMode, setIsFocusMode] = useState(false); // 集中画面への切り替えフラグ
   const [focusTask, setFocusTask] = useState(null); // 今やるべき1つのタスク
 
-  // 【機能1】タスク追加ボタンを押したときの処理
+  // ----------------------------------------------------
+  // 🔐 【新規】ログインボタンを押したときの処理
+  // ----------------------------------------------------
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setLoginError("");
+
+    // 入力チェック
+    if (!username.trim() || !password.trim()) {
+      setLoginError("ユーザー名とパスワードを入力してください。");
+      return;
+    }
+
+    try {
+      // Spring BootのログインAPIを呼び出す
+      const response = await fetch(LOGIN_API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password }),
+      });
+
+      if (response.ok) {
+        setIsLoggedIn(true); // ログイン成功！タスク画面へのアクセスを許可
+      } else {
+        setLoginError("ユーザー名またはパスワードが違います。");
+      }
+    } catch (error) {
+      setLoginError(
+        "バックエンドサーバーと通信できません。起動を確認してください。",
+      );
+    }
+  };
+
+  //  ログアウト処理
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    setIsFocusMode(false);
+    setUsername("");
+    setPassword("");
+    setLoginError("");
+  };
+
+  // ----------------------------------------------------
+  // 🛠️ タスク管理用の通信処理・イベント
+  // ----------------------------------------------------
   const handleAddTask = async (e) => {
     e.preventDefault();
     setErrorMessage("");
 
-    // --- 画面設計書通りの入力制限（必須チェック） ---
     if (!taskName.trim()) {
       setErrorMessage("「タスク内容を入力してください。」");
       return;
     }
-    // --- 画面設計書通りの入力制限（文字数チェック） ---
     if (taskName.length > 100) {
       setErrorMessage("「タスク内容は100文字以内で入力してください。」");
       return;
     }
 
     try {
-      // Spring Bootの登録APIを呼び出す
       const response = await fetch(API_BASE_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -36,31 +84,24 @@ function App() {
       });
 
       if (response.ok) {
-        setTaskName(""); // 登録成功したら入力欄を自動クリア（画面制御要件）
+        setTaskName("");
         alert("タスクを追加しました！");
       } else {
-        setErrorMessage(
-          "登録に失敗しました。サーバーのエラーを確認してください。",
-        );
+        setErrorMessage("登録に失敗しました。");
       }
     } catch (error) {
-      setErrorMessage(
-        "バックエンドサーバーと通信できません。起動しているか確認してください。",
-      );
+      setErrorMessage("サーバーと通信できません。");
     }
   };
 
-  // 【機能2】業務を開始するボタンを押したときの処理（画面切り替え制御）
   const handleStartFocus = async () => {
     try {
-      // 集中画面用のタスクを1件取得するAPIを呼び出す
       const response = await fetch(`${API_BASE_URL}/focus`);
       if (response.status === 200) {
         const data = await response.json();
-        setFocusTask(data); // タスクをセット
-        setIsFocusMode(true); // 2枚目の「シングルタスク集中画面」へ遷移
+        setFocusTask(data);
+        setIsFocusMode(true);
       } else if (response.status === 204) {
-        // 未完了タスクが0件の場合の労いメッセージ表示制御
         setFocusTask(null);
         setIsFocusMode(true);
       }
@@ -69,20 +110,18 @@ function App() {
     }
   };
 
-  // 【機能3】完了（できた！）ボタンを押したときの処理
   const handleCompleteTask = async (id) => {
     try {
       const response = await fetch(`${API_BASE_URL}/${id}/complete`, {
         method: "PUT",
       });
       if (response.ok) {
-        // 完了更新に成功したら、間髪入れずに次の「今やるべき1つのタスク」を再取得する
         const nextResponse = await fetch(`${API_BASE_URL}/focus`);
         if (nextResponse.status === 200) {
           const data = await nextResponse.json();
           setFocusTask(data);
         } else {
-          setFocusTask(null); // 次のタスクが無ければ完了画面に切り替える
+          setFocusTask(null);
         }
       }
     } catch (error) {
@@ -90,20 +129,16 @@ function App() {
     }
   };
 
-  // 【機能4】リセットボタンを押したときの処理（DELETE APIの呼び出し）
   const handleResetAll = async () => {
     if (
       !window.confirm("本当にすべてのタスクデータを削除してリセットしますか？")
-    ) {
+    )
       return;
-    }
     try {
-      const response = await fetch(API_BASE_URL, {
-        method: "DELETE",
-      });
+      const response = await fetch(API_BASE_URL, { method: "DELETE" });
       if (response.ok) {
         setFocusTask(null);
-        setIsFocusMode(false); // データを一括削除し、初期状態の「登録画面」へ引き戻す
+        setIsFocusMode(false);
         alert("すべてのタスクをリセットしました！");
       }
     } catch (error) {
@@ -112,19 +147,66 @@ function App() {
   };
 
   // ----------------------------------------------------
-  // 🖥️ 画面レイアウト（表示制御）
+  // 🖥️ 画面表示の切り替え制御（ルーティング制御）
   // ----------------------------------------------------
 
-  // まだ「タスク登録画面（1枚目）」を表示する場合
+  // 🔏 パターン0：まだログインしていない場合（アクセス制御要件）
+  if (!isLoggedIn) {
+    return (
+      <div className="container">
+        <h1>MonoTask</h1>
+        <p className="subtitle">業務着手支援システム（ログイン）</p>
+
+        {loginError && <p className="error-text">{loginError}</p>}
+
+        <form onSubmit={handleLogin} className="login-form">
+          <input
+            type="text"
+            placeholder="ユーザー名（admin）"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            className="task-input"
+          />
+          <input
+            type="password"
+            placeholder="パスワード（1234）"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="task-input"
+          />
+          <button
+            type="submit"
+            className="start-button"
+            style={{ width: "100%", marginTop: "10px" }}
+          >
+            ログイン
+          </button>
+        </form>
+        <p style={{ fontSize: "0.8rem", color: "#999", marginTop: "20px" }}>
+          ※デモ用アカウント: admin / 1234
+        </p>
+      </div>
+    );
+  }
+
+  // 🟢 パターン1：ログイン済み ＆ まだ「タスク登録画面」を表示する場合
   if (!isFocusMode) {
     return (
       <div className="container">
+        <div style={{ textAlign: "right" }}>
+          <button
+            onClick={handleLogout}
+            className="back-button"
+            style={{ color: "#e53e3e" }}
+          >
+            🚪 ログアウト
+          </button>
+        </div>
         <h1>MonoTask</h1>
         <p className="subtitle">
           「今やるべき1つの事」に全集中！目移りを遮断する業務着手支援システム
         </p>
 
-        {/* エラーメッセージの動的表示（赤字で警告） */}
         {errorMessage && <p className="error-text">{errorMessage}</p>}
 
         <form onSubmit={handleAddTask} className="task-form">
@@ -149,7 +231,7 @@ function App() {
     );
   }
 
-  // 2枚目：シングルタスク集中画面のレイアウト
+  // 🔵 パターン2：ログイン済み ＆ 「シングルタスク集中画面」を表示する場合
   return (
     <div className="container">
       <h1>MonoTask</h1>
@@ -159,11 +241,9 @@ function App() {
 
       <div className="focus-card">
         {focusTask ? (
-          // 【正常時】システムが自動で選んだタスクを画面中央に巨大表示
           <div>
             <p className="focus-label">今やるべきことはこれだけ！</p>
             <h2 className="giant-task-name">{focusTask.taskName}</h2>
-
             <button
               onClick={() => handleCompleteTask(focusTask.id)}
               className="complete-button"
@@ -172,7 +252,6 @@ function App() {
             </button>
           </div>
         ) : (
-          // 【全完了時】未完了タスクが0件になった場合の、達成感を促すメッセージ
           <div className="all-completed-container">
             <span className="celebration-emoji">🎉</span>
             <h2 className="all-completed-text">すべての業務が完了しました！</h2>
@@ -183,7 +262,6 @@ function App() {
         )}
       </div>
 
-      {/* 画面下のコントロールエリア */}
       <div className="control-footer">
         <button onClick={handleResetAll} className="reset-button">
           🔄 システムをリセット
@@ -194,6 +272,6 @@ function App() {
       </div>
     </div>
   );
-} // ← ここでApp関数を綺麗に閉じているので、エラーが完全に消え去ります！
+}
 
 export default App;
